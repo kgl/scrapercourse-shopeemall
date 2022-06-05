@@ -16,7 +16,7 @@ cards = driver.find_elements(
     By.CSS_SELECTOR, "div[class='col-xs-2 recommend-products-by-view__item-card-wrapper']")
 items = []
 for card in cards:
-    ActionChains(driver).move_to_element(card).perform()
+    # ActionChains(driver).move_to_element(card).perform()
 
     title = card.find_element(
         By.CSS_SELECTOR, "div[class='ie3A+n bM+7UW Cve6sh']").text
@@ -26,4 +26,18 @@ for card in cards:
         By.TAG_NAME, "a").get_attribute("href")
     items.append((title, price, link))
 
-print(items)
+# print(items)
+
+result = []
+for item in items:
+    driver.get(item[2])
+
+    for i in range(5):
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+        time.sleep(3)
+
+    comments = driver.find_elements(By.CSS_SELECTOR, "div[class='Em3Qhp']")
+    for comment in comments:
+        result.append((item[0], item[1], comment.text))
+    break
+print(result)
