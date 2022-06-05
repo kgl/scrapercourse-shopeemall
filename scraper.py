@@ -16,6 +16,8 @@ cards = driver.find_elements(
     By.CSS_SELECTOR, "div[class='col-xs-2 recommend-products-by-view__item-card-wrapper']")
 items = []
 for card in cards:
+    ActionChains(driver).move_to_element(card).perform()
+
     title = card.find_element(
         By.CSS_SELECTOR, "div[class='ie3A+n bM+7UW Cve6sh']").text
     price = card.find_element(
